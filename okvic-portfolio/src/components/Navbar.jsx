@@ -1,43 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { close, menu } from "../assets";
-import { navLinks } from "../data";
 import Position from "./Position";
 
 const Navbar = () => {
-  const [active, setActive] = useState("hero");
-  const [scrolled, setScrolled] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollTop = window.scrollY;
-  //     setScrolled(scrollTop > 100);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
-  useEffect(() => {
-    const sections = document.querySelectorAll("div[id]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50% 0px",
-      }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => sections.forEach((section) => observer.unobserve(section));
-  }, []);
 
   return (
     <nav
@@ -51,10 +15,6 @@ const Navbar = () => {
       <div className="w-full flex justify-between items-start mx-auto">
         <div
           className="flex items-center justify-center"
-          // onClick={() => {
-          //   setActive("hero");
-          //   window.scrollTo(0, 0);
-          // }}
         >
           <img
             src="favicon.png"

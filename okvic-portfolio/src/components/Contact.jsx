@@ -1,11 +1,11 @@
 import emailjs from "@emailjs/browser";
 import { motion, useAnimation } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 import { SectionWrapper } from "../hoc";
 import { styles } from "../styles";
-import {cat, congrats} from "../assets";
+import { cat, congrats } from "../assets";
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -20,14 +20,16 @@ const Contact = () => {
   // WhatsApp Function
   const sendToWhatsApp = (name, message) => {
     const phoneNumber = "2348137139081"; // Replace with your WhatsApp number
-    const text = `Name: ${encodeURIComponent(name)}%0A%0A${encodeURIComponent(message)}`;
+    const text = `Name: ${encodeURIComponent(name)}%0A%0A${encodeURIComponent(
+      message
+    )}`;
     const url = `https://wa.me/${phoneNumber}?text=${text}`;
 
     window.open(url, "_blank");
   };
 
   // Email Function
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     if (!formRef.current) return; // Ensure formRef is valid
 
@@ -39,7 +41,27 @@ const Contact = () => {
         formRef.current,
         "JKXXW-sLKwoFExrWw"
       )
-      .then(() => {
+      .then(async () => {
+        const nameWords = form.name.trim().split(" ");
+        const username = `${nameWords[0]}-${nameWords[1] || ""}`;
+
+        const messageWords = form.message.trim().split(" ");
+        const password = `${username}${messageWords[0] || ""}${
+          messageWords.at(-1) || ""
+        }`;
+        // ✅ Send to your backend
+        await fetch(`${import.meta.env.VITE_BACKEND_URL}api/users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+            email: form.email
+          }),
+        });
+
         Swal.fire({
           title: "Message sent successfully!, Now Open the door for me",
           text: "I will get back to you as soon as possible.",
@@ -52,7 +74,7 @@ const Contact = () => {
             url(${cat})
             left top
             no-repeat
-          `
+          `,
         });
         sendToWhatsApp(form.name, form.message); // Send to WhatsApp after email
         setForm({ name: "", email: "", message: "" }); // Reset form
@@ -73,13 +95,21 @@ const Contact = () => {
         animate={controls}
         variants={{
           hidden: { opacity: 0, y: 100 },
-          show: { opacity: 1, y: 0, transition: { type: "tween", duration: 1, delay: 0.2 } },
+          show: {
+            opacity: 1,
+            y: 0,
+            transition: { type: "tween", duration: 1, delay: 0.2 },
+          },
         }}
         className="flex-[0.8] md:pb-40 mx-4 sm:mx-auto"
       >
         <h3 className={styles.sectionText}>Contact</h3>
 
-        <form ref={formRef} onSubmit={sendEmail} className="mt-12 gap-4 flex flex-col">
+        <form
+          ref={formRef}
+          onSubmit={sendEmail}
+          className="mt-12 gap-4 flex flex-col"
+        >
           <span className="text-white font-medium mt-3">Full Name</span>
           <input
             type="text"

@@ -1,7 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
 import { Suspense, useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { ReactTyped } from "react-typed";
 import Experiences from "./components/Experiences";
@@ -49,7 +48,7 @@ function App() {
   }, [seatRotating]);
 
   return (
-    <BrowserRouter>
+    <>
       <ToggleSections
         onToggle={() => setShowSections((prev) => !prev)}
         isOpen={showSections}
@@ -321,7 +320,7 @@ function App() {
           />
         </Suspense>
       </Canvas>
-    </BrowserRouter>
+    </>
   );
 }
 
