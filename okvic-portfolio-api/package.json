@@ -1,0 +1,41 @@
+{
+  "name": "okvic-portfolio-api",
+  "version": "1.0.0",
+  "description": "backend for my portfolio website",
+  "keywords": [
+    "okoli",
+    "victor",
+    "ifeanyi",
+    "portfolio",
+    "web3",
+    "developer",
+    "3d",
+    "artist",
+    "game",
+    "developer",
+    "fullstack",
+    "developer",
+    "solana"
+  ],
+  "license": "ISC",
+  "author": "Victor Ifeanyi Okoli",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build": "echo \"Error: no build specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9"
+  }
+}
